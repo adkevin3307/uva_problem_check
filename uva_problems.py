@@ -48,11 +48,14 @@ def update_configure(path, re):
     if os.path.exists('configure.json'):
         with open('configure.json', 'r') as file:
             conf = json.load(file)
+            if 'folder' not in conf.keys():
+                conf['folder'] = './'
+            if 're' not in conf.keys():
+                conf['re'] = '(UVa_)?([0-9]+)(\(.*\))?.([a-zA-Z]+)'
     if (not update_path(path)) and (not os.path.exists('configure.json')):
         conf['folder'] = './'
     if (not update_re(re)) and (not os.path.exists('configure.json')):
-        conf['re'] = '(UVa_)?([0-9]+)(\([0-9a-zA-Z]*\))?.([a-zA-Z]+)'
-
+        conf['re'] = '(UVa_)?([0-9]+)(\(.*\))?.([a-zA-Z]+)'
     with open('configure.json', 'w') as file:
         json.dump(conf, file)
 
